@@ -189,7 +189,7 @@ class DragRuler extends Ruler{
   	_highlightMeasurement(line){
   		let remainingSpeed = (this.tokenSpeed.normal != null) ? this.tokenSpeed.normal:null;
 	    let dashSpeed = (this.tokenSpeed.dash !== null) ? this.tokenSpeed.dash: null;
-	 	let maxSpeed = remainingSpeed;
+	 	let maxSpeed = dashSpeed;
 	 	let color = this.color;
 	 	
 	 	 for(let i=0;i<line.length;i++){
