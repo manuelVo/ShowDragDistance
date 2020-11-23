@@ -796,9 +796,7 @@ function grid_line(p0, p1, totalDistance=0, nDiagonals=0,ignoreTerrain=false) {
     	let rRow = Math.round(row);
     	
     	let dist = canvas.dimensions.distance;
-    	if((game.system.id == 'dnd5e' && canvas.grid.diagonalRule == '5105') || game.system.id == 'pf2e'){
-    		
-    	
+    	if(canvas.grid.diagonalRule == '5105'){
     		let dx2 = Math.abs(points[i].col - rCol);
 			let dy2 = Math.abs(points[i].row - rRow);
 			let nd = Math.min(dx2, dy2);
