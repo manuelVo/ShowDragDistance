@@ -123,7 +123,8 @@ class DragRuler extends Ruler{
 
 		  	let line;
 		 	let ignoreTerrain = (typeof this.getToken.ignoreTerrain != 'undefined') ? this.getToken.ignoreTerrain:false;
-	      	if(canvas.grid.type > 1){
+			// Hex Grid  
+			 if(canvas.grid.type > 1){
 	      		let grid0 = canvas.grid.grid.getGridPositionFromPixels(s.ray.A.x,s.ray.A.y);
 	      		let grid1 = canvas.grid.grid.getGridPositionFromPixels(s.ray.B.x,s.ray.B.y);
 
@@ -135,14 +136,22 @@ class DragRuler extends Ruler{
 		      
 		      	line = hex0.linedraw(hex1,totalDistance,ignoreTerrain)
 		    
-		      	
-			}else if(canvas.grid.type == 1){
+			}
+			// Square grid
+			else if(canvas.grid.type == 1){
 				let p0 = canvas.grid.grid.getGridPositionFromPixels(s.ray.A.x,s.ray.A.y)
 				let p1 = canvas.grid.grid.getGridPositionFromPixels(s.ray.B.x,s.ray.B.y)
 				
 				line = grid_line({row:p0[0],col:p0[1]},{row:p1[0],col:p1[1]},totalDistance,nDiagonals,ignoreTerrain)
 			}
-		  
+			// Gridless
+			else {
+				const distance = canvas.grid.measureDistances([{ray: s.ray, label: ""}], {gridSpaces: false})[0];
+				// row, col, nDiagonals and travelled fields are missing from this object intentionally.
+				// They are used to highlight visited fields and as such are not needed on gridless maps
+				line = [{distance}]
+			}
+
 		    nDiagonals = line[line.length-1].nDiagonals;
 		    s.distance = line.reduce((sum,val)=>{return sum + val.distance},0)
 		    totalDistance += s.distance;
